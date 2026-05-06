@@ -91,6 +91,25 @@ Core tools:
 
 This is the highest-leverage custom plugin because LibreChat artifacts are excellent for interactive code/HTML/Mermaid, but client demos often need downloadable PPTX, DOCX, XLSX, and PDF outputs.
 
+### 5. Tenexity ERP Query MCP
+
+Use this for live manufacturing and distribution demos where the agent needs to answer from ERP data instead of uploaded files.
+
+Implemented scaffold:
+
+- `mcp/tenexity-erp-query`
+- `docs/operations/erp-database-query-design.md`
+
+Core tools:
+
+- `erp_connection_profile`
+- `erp_schema_map`
+- `erp_run_read_query`
+- `erp_inventory_position`
+- `erp_order_risk`
+
+This should be hosted as its own Railway service and connected to LibreChat through a `streamable-http` MCP server after `TENEXITY_ERP_MCP_URL` and `TENEXITY_ERP_MCP_API_KEY` exist.
+
 ## Deployment Pattern
 
 Use `streamable-http` MCP servers for anything production-facing. LibreChat's docs describe Streamable HTTP as the better fit for scalable multi-user deployments compared with long-running SSE or local stdio processes.
@@ -103,5 +122,6 @@ Source: https://www.librechat.ai/docs/features/mcp
 2. Confirm OpenRouter model modes appear and run a prompt through `OpenRouter Auto`.
 3. Add a Google Drive MCP server for source documents and artifact storage.
 4. Add a chart MCP server for dashboard/report visualizations.
-5. Build `tenexity-artifact-export-mcp` as a small Railway service for PPTX/DOCX/XLSX/PDF export.
-6. Lock down demo registration and move toward a custom domain.
+5. Deploy `tenexity-erp-query` against a read-only ERP reporting replica.
+6. Build `tenexity-artifact-export-mcp` as a small Railway service for PPTX/DOCX/XLSX/PDF export.
+7. Lock down demo registration and move toward a custom domain.

@@ -29,6 +29,16 @@ Provider keys:
 - `OPENROUTER_KEY`: unified provider key for OpenRouter model routing and model comparison.
 - `RAG_OPENAI_API_KEY`: embedding/retrieval key for the LibreChat RAG API.
 
+ERP MCP/database secrets:
+
+- `TENEXITY_ERP_MCP_URL`: deployed ERP MCP endpoint, for example `https://.../mcp`.
+- `TENEXITY_ERP_MCP_API_KEY`: bearer token LibreChat uses to call the ERP MCP service.
+- `ERP_DB_DIALECT`: `postgres`, `mysql`, or `mssql`.
+- `ERP_DATABASE_URL`: read-only reporting database URL, or use host/user/password fields.
+- `ERP_DB_HOST`, `ERP_DB_PORT`, `ERP_DB_NAME`, `ERP_DB_USER`, `ERP_DB_PASSWORD`, `ERP_DB_SSL`.
+- `ERP_TABLE_MAP_JSON`: manufacturing/distribution table map used by domain tools.
+- `ERP_QUERY_MAX_ROWS`, `ERP_QUERY_DEFAULT_ROWS`, `ERP_ALLOWED_SCHEMAS`, `ERP_QUERY_AUDIT_LOG`.
+
 App/runtime config:
 
 - `APP_TITLE`
