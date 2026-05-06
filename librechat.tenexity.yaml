@@ -1,0 +1,153 @@
+version: 1.3.9
+cache: true
+
+interface:
+  customWelcome: "ChatTenexity is ready for client demos. Choose a Tenexity demo mode to create presentation outlines, executive reports, implementation briefs, or client-ready artifacts."
+  fileSearch: true
+  modelSelect: true
+  parameters: true
+  presets: true
+  prompts:
+    use: true
+    create: true
+    share: false
+    public: false
+  bookmarks: true
+  multiConvo: true
+  agents:
+    use: true
+    create: true
+    share: false
+    public: false
+  peoplePicker:
+    users: true
+    groups: true
+    roles: true
+  marketplace:
+    use: false
+  fileCitations: true
+  webSearch: true
+
+registration:
+  socialLogins: []
+
+endpoints:
+  agents:
+    recursionLimit: 50
+    maxRecursionLimit: 100
+    disableBuilder: false
+    maxCitations: 40
+    maxCitationsPerFile: 10
+    minRelevanceScore: 0.35
+    capabilities:
+      - deferred_tools
+      - execute_code
+      - file_search
+      - web_search
+      - artifacts
+      - subagents
+      - actions
+      - context
+      - skills
+      - tools
+      - chain
+      - ocr
+
+modelSpecs:
+  enforce: false
+  prioritize: true
+  list:
+    - name: tenexity-demo-builder
+      label: "Tenexity Demo Builder"
+      description: "Turns rough client context into a polished live demo plan, script, and artifact checklist."
+      group: "Tenexity Demo Modes"
+      groupIcon: openAI
+      default: true
+      order: 1
+      artifacts: true
+      fileSearch: true
+      webSearch: true
+      executeCode: true
+      preset:
+        endpoint: openAI
+        model: gpt-4o
+        temperature: 0.35
+        instructions: |
+          You are ChatTenexity's demo builder. Convert sparse client context into a crisp demo narrative, live-click script, artifact checklist, and follow-up plan.
+          Be concrete. Use headings, tables, and decision points. When the user asks for a presentation or report, produce content that can be pasted into slides or a client-facing document.
+
+    - name: presentation-studio
+      label: "Presentation Studio"
+      description: "Creates slide outlines, talk tracks, diagrams, and executive-level messaging."
+      group: "Tenexity Demo Modes"
+      order: 2
+      artifacts: true
+      fileSearch: true
+      webSearch: true
+      executeCode: true
+      preset:
+        endpoint: openAI
+        model: gpt-4o
+        temperature: 0.45
+        instructions: |
+          You are a senior presentation strategist. Build tight slide narratives with titles, slide objectives, visual direction, speaker notes, and appendix material.
+          Favor useful structure over decoration. Ask only for missing business-critical facts; otherwise make practical assumptions and label them.
+
+    - name: report-analyst
+      label: "Report Analyst"
+      description: "Creates business reports with methodology, assumptions, tables, risks, and next steps."
+      group: "Tenexity Demo Modes"
+      order: 3
+      artifacts: true
+      fileSearch: true
+      webSearch: true
+      executeCode: true
+      preset:
+        endpoint: openAI
+        model: gpt-4o
+        temperature: 0.25
+        instructions: |
+          You are a rigorous business analyst. Build reports that can survive stakeholder scrutiny: executive summary, methodology, assumptions, calculations, evidence, risks, and recommended actions.
+          Be explicit about what is known, inferred, or missing. Use tables when they make the report easier to audit.
+
+    - name: client-workshop
+      label: "Client Workshop"
+      description: "Prepares discovery agendas, facilitation guides, and implementation workstreams."
+      group: "Tenexity Demo Modes"
+      order: 4
+      artifacts: true
+      fileSearch: true
+      webSearch: true
+      executeCode: true
+      preset:
+        endpoint: anthropic
+        model: claude-sonnet-4-6
+        temperature: 0.35
+        instructions: |
+          You are a client workshop lead. Produce practical workshop agendas, discovery questions, decision logs, artifacts to collect, and implementation workstreams.
+          Keep outputs grounded in the client's operating reality and turn ambiguity into clearly named decisions.
+
+fileConfig:
+  endpoints:
+    default:
+      fileLimit: 8
+      fileSizeLimit: 25
+      totalSizeLimit: 100
+      supportedMimeTypes:
+        - "application/pdf"
+        - "text/.*"
+        - "application/json"
+        - "application/csv"
+        - "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        - "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        - "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    openAI:
+      fileLimit: 8
+      fileSizeLimit: 25
+      totalSizeLimit: 100
+    anthropic:
+      fileLimit: 8
+      fileSizeLimit: 25
+      totalSizeLimit: 100
+  serverFileSizeLimit: 100
+  avatarSizeLimit: 2
