@@ -7,6 +7,7 @@
 - App service: `LibreChat`
 - Public app URL: `https://librechat-production-43c8.up.railway.app`
 - Config URL: `https://raw.githubusercontent.com/nicktenexity/ChatTenexity/main/librechat.tenexity.yaml`
+- Doppler project/config: `chattenexity` / `prd`
 
 ## What Is Deployed
 
@@ -54,9 +55,9 @@ railway variable set --service LibreChat CONFIG_PATH=https://raw.githubuserconte
 Set secrets without printing them:
 
 ```bash
-doppler secrets get OPENAI_API_KEY --project softwarefactory --config prd --plain | railway variable set --service LibreChat --stdin OPENAI_API_KEY
-doppler secrets get ANTHROPIC_API_KEY --project softwarefactory --config prd --plain | railway variable set --service LibreChat --stdin ANTHROPIC_API_KEY
-doppler secrets get OPENAI_API_KEY --project softwarefactory --config prd --plain | railway variable set --service "RAG API" --stdin RAG_OPENAI_API_KEY
+doppler secrets get OPENAI_API_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin OPENAI_API_KEY
+doppler secrets get ANTHROPIC_API_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin ANTHROPIC_API_KEY
+doppler secrets get RAG_OPENAI_API_KEY --project chattenexity --config prd --plain | railway variable set --service "RAG API" --stdin RAG_OPENAI_API_KEY
 ```
 
 Redeploy after config or secret changes:
