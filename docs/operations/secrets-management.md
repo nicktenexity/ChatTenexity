@@ -46,6 +46,7 @@ App/runtime config:
 - `CONFIG_PATH`
 - `DOMAIN_CLIENT`
 - `DOMAIN_SERVER`
+- `OPENAI_MODELS`
 - `ALLOW_EMAIL_LOGIN`
 - `ALLOW_REGISTRATION`
 - `BAN_VIOLATIONS`
@@ -67,7 +68,6 @@ Railway currently hosts the runtime. Use Doppler as the source and push values i
 ```bash
 doppler secrets get OPENAI_API_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin OPENAI_API_KEY
 doppler secrets get ANTHROPIC_API_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin ANTHROPIC_API_KEY
-doppler secrets get OPENROUTER_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin OPENROUTER_KEY
 doppler secrets get RAG_OPENAI_API_KEY --project chattenexity --config prd --plain | railway variable set --service "RAG API" --stdin RAG_OPENAI_API_KEY
 ```
 
@@ -78,6 +78,9 @@ railway variable set --service LibreChat \
   APP_TITLE="Tenexity AI Workspace" \
   CUSTOM_FOOTER="Tenexity AI Workspace" \
   CONFIG_PATH=https://raw.githubusercontent.com/nicktenexity/ChatTenexity/main/librechat.tenexity.yaml \
+  DOMAIN_CLIENT=https://chat.tenexity.ai \
+  DOMAIN_SERVER=https://chat.tenexity.ai \
+  OPENAI_MODELS=gpt-5.5,gpt-5.4,gpt-5.4-mini,gpt-5.4-pro,gpt-5.1,gpt-5,gpt-4.1,gpt-4o \
   ALLOW_EMAIL_LOGIN=true \
   ALLOW_REGISTRATION=true \
   BAN_VIOLATIONS=false
@@ -94,8 +97,9 @@ railway redeploy --service "RAG API" --yes
 
 - Re-authenticate Railway CLI when needed with `railway login`; the local token can expire.
 - Mirror the Railway-generated internal secrets into Doppler so the full environment can be recreated from Doppler.
-- Decide on a custom domain, for example `chat.tenexity.ai`, then set `DOMAIN_CLIENT` and `DOMAIN_SERVER` to that domain.
+- Add `chat.tenexity.ai` to Railway as a custom domain, create the Cloudflare DNS record Railway provides with proxy status set to DNS-only, then set `DOMAIN_CLIENT` and `DOMAIN_SERVER` to that domain.
 - After demo accounts are created, set `ALLOW_REGISTRATION=false`.
 - Before broader public use, consider setting `BAN_VIOLATIONS=true` again and testing from a normal browser.
 - Add SMTP/email provider credentials if you want production email verification and password reset.
 - Add a search provider key such as Tavily or Serper if web-search demos should be reliable.
+- Add `OPENROUTER_KEY` only if you want to re-enable OpenRouter comparison modes. The current production config uses OpenAI and Anthropic presets because those keys exist in Doppler.

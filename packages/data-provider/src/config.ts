@@ -12,6 +12,9 @@ import { MCPServersSchema } from './mcp';
 export const defaultSocialLogins = ['google', 'facebook', 'openid', 'github', 'discord', 'saml'];
 
 export const defaultRetrievalModels = [
+  'gpt-5.5',
+  'gpt-5.4',
+  'gpt-5.4-mini',
   'gpt-4o',
   'o1-preview-2024-09-12',
   'o1-preview',
@@ -1461,7 +1464,9 @@ export const alternateName = {
 };
 
 const sharedOpenAIModels = [
+  'gpt-5.5',
   'gpt-5.4',
+  'gpt-5.4-mini',
   // TODO: gpt-5.4-thinking may have separate reasoning token pricing — verify before release
   'gpt-5.4-thinking',
   'gpt-5.4-pro',

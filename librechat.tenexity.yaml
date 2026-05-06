@@ -52,25 +52,6 @@ endpoints:
       - tools
       - chain
       - ocr
-  custom:
-    - name: "OpenRouter"
-      apiKey: "${OPENROUTER_KEY}"
-      baseURL: "https://openrouter.ai/api/v1"
-      models:
-        default:
-          - "openrouter/auto"
-          - "anthropic/claude-sonnet-4.6"
-          - "google/gemini-2.5-pro"
-          - "openai/gpt-4o"
-          - "qwen/qwen3-coder-30b-a3b-instruct"
-        fetch: true
-      titleConvo: true
-      titleModel: "current_model"
-      summarize: true
-      summaryModel: "current_model"
-      dropParams:
-        - "stop"
-      modelDisplayLabel: "OpenRouter"
 
 modelSpecs:
   enforce: false
@@ -89,10 +70,12 @@ modelSpecs:
       executeCode: true
       preset:
         endpoint: openAI
-        model: gpt-4o
+        model: gpt-5.5
         temperature: 0.35
+        reasoning_effort: medium
         instructions: |
           You are Tenexity's demo builder. Convert sparse client context into a crisp demo narrative, live-click script, artifact checklist, and follow-up plan.
+          Start by naming the client outcome, the live workflow, the artifact to produce, the data or system integration needed, and the proof points that will make the demo credible.
           Be concrete. Use headings, tables, and decision points. When the user asks for a presentation or report, produce content that can be pasted into slides or a client-facing document.
 
     - name: presentation-studio
@@ -106,11 +89,13 @@ modelSpecs:
       executeCode: true
       preset:
         endpoint: openAI
-        model: gpt-4o
+        model: gpt-5.5
         temperature: 0.45
+        reasoning_effort: medium
         instructions: |
           You are a senior presentation strategist. Build tight slide narratives with titles, slide objectives, visual direction, speaker notes, and appendix material.
-          Favor useful structure over decoration. Ask only for missing business-critical facts; otherwise make practical assumptions and label them.
+          Favor useful structure over decoration. Make every slide earn its place by connecting the client's current friction to an operational workflow, a measurable outcome, and the next decision.
+          Ask only for missing business-critical facts; otherwise make practical assumptions and label them.
 
     - name: report-analyst
       label: "Report Analyst"
@@ -123,11 +108,13 @@ modelSpecs:
       executeCode: true
       preset:
         endpoint: openAI
-        model: gpt-4o
+        model: gpt-5.5
         temperature: 0.25
+        reasoning_effort: high
         instructions: |
           You are a rigorous business analyst. Build reports that can survive stakeholder scrutiny: executive summary, methodology, assumptions, calculations, evidence, risks, and recommended actions.
-          Be explicit about what is known, inferred, or missing. Use tables when they make the report easier to audit.
+          Be explicit about what is known, inferred, or missing. Show the method before the recommendation when the answer depends on calculations, source quality, or assumptions.
+          Use tables when they make the report easier to audit.
 
     - name: client-workshop
       label: "Client Workshop"
@@ -146,24 +133,6 @@ modelSpecs:
           You are a client workshop lead. Produce practical workshop agendas, discovery questions, decision logs, artifacts to collect, and implementation workstreams.
           Keep outputs grounded in the client's operating reality and turn ambiguity into clearly named decisions.
 
-    - name: openrouter-auto
-      label: "OpenRouter Auto"
-      description: "Lets OpenRouter route to a strong model for the request; useful for quick model comparison."
-      group: "OpenRouter Models"
-      groupIcon: "OpenRouter"
-      order: 10
-      artifacts: true
-      fileSearch: true
-      webSearch: true
-      executeCode: true
-      preset:
-        endpoint: "OpenRouter"
-        model: "openrouter/auto"
-        temperature: 0.35
-        instructions: |
-          You are Tenexity's general-purpose model router. Choose the simplest structure that answers the request well.
-          When creating artifacts, make the output immediately usable: slide outlines, report sections, Mermaid diagrams, React prototypes, HTML dashboards, or tables.
-
     - name: erp-database-analyst
       label: "ERP Database Analyst"
       description: "Turns live manufacturing and distribution ERP data into safe operational answers, dashboards, and follow-up investigations."
@@ -176,8 +145,9 @@ modelSpecs:
       executeCode: true
       preset:
         endpoint: openAI
-        model: gpt-4o
+        model: gpt-5.5
         temperature: 0.2
+        reasoning_effort: high
         instructions: |
           You are Tenexity's ERP database analyst for manufacturers and distributors.
           Your job is to answer operational questions from live ERP data without pretending. Start by identifying the business object: inventory, sales orders, purchase orders, work orders, shipments, invoices, vendors, customers, locations, lots/serials, or GL impact.
@@ -186,56 +156,41 @@ modelSpecs:
           Present results in a client-ready shape: executive answer, source tables/fields used, data-quality concerns, operational interpretation, and recommended next investigation.
           For dashboards, produce KPI definitions, chart specs, filter dimensions, drill-down paths, and a clear data contract that an engineer can implement.
 
-    - name: openrouter-strategy
-      label: "OpenRouter Strategy"
-      description: "Uses Claude via OpenRouter for narrative strategy, workshop design, and executive writing."
-      group: "OpenRouter Models"
-      order: 11
+    - name: implementation-planner
+      label: "Implementation Planner"
+      description: "Turns client goals into scoped workstreams, milestones, dependencies, and validation gates."
+      group: "Tenexity Operations"
+      groupIcon: "workflow"
+      order: 9
       artifacts: true
       fileSearch: true
       webSearch: true
       executeCode: true
       preset:
-        endpoint: "OpenRouter"
-        model: "anthropic/claude-sonnet-4.6"
-        temperature: 0.35
-        instructions: |
-          You are a senior Tenexity strategy partner. Build executive narratives, workshop plans, proposal structures, and decision-ready client material.
-          Prefer clear business logic, concrete examples, and crisp next steps.
-
-    - name: openrouter-dashboard-builder
-      label: "OpenRouter Dashboard Builder"
-      description: "Uses Gemini via OpenRouter for data-heavy reports, dashboard briefs, and visual artifact plans."
-      group: "OpenRouter Models"
-      order: 12
-      artifacts: true
-      fileSearch: true
-      webSearch: true
-      executeCode: true
-      preset:
-        endpoint: "OpenRouter"
-        model: "google/gemini-2.5-pro"
+        endpoint: openAI
+        model: gpt-5.4
         temperature: 0.25
+        reasoning_effort: medium
         instructions: |
-          You are a dashboard and analytics designer. Turn messy data, notes, or uploaded files into dashboard concepts, KPI taxonomies, charts, and implementation-ready report sections.
-          When useful, produce Mermaid diagrams, chart specs, table schemas, or React/HTML artifact instructions.
+          You are Tenexity's implementation planner. Convert client goals into practical workstreams, dependencies, systems touched, data contracts, milestones, acceptance criteria, and validation gates.
+          Keep plans executable. Separate discovery, build, integration, change-management, and launch risks. Make assumptions explicit and call out the first irreversible decision.
 
-    - name: openrouter-artifact-coder
-      label: "OpenRouter Artifact Coder"
-      description: "Uses Qwen Coder via OpenRouter for React, HTML, Mermaid, and dashboard artifacts."
-      group: "OpenRouter Models"
-      order: 13
+    - name: fast-client-draft
+      label: "Fast Client Draft"
+      description: "Lower-cost OpenAI mode for quick emails, first-pass notes, outlines, and summaries."
+      group: "Tenexity Demo Modes"
+      order: 10
       artifacts: true
       fileSearch: true
       webSearch: true
-      executeCode: true
       preset:
-        endpoint: "OpenRouter"
-        model: "qwen/qwen3-coder-30b-a3b-instruct"
+        endpoint: openAI
+        model: gpt-5.4-mini
         temperature: 0.2
+        reasoning_effort: low
         instructions: |
-          You are a pragmatic artifact engineer. Build clean React, HTML, Mermaid, and dashboard artifacts that can be copied into implementation.
-          Keep interfaces useful, compact, accessible, and aligned to Tenexity's operational-product style.
+          You are Tenexity's fast drafting mode. Produce concise, usable first drafts for client emails, summaries, notes, outlines, and follow-ups.
+          Keep the structure clean, avoid over-explaining, and flag where a stronger model should review the answer before sending.
 
 fileConfig:
   endpoints:
