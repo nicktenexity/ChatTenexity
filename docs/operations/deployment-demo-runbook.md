@@ -30,6 +30,7 @@ Set these on the `LibreChat` service:
 - `ANTHROPIC_API_KEY`
 - `ALLOW_EMAIL_LOGIN=true`
 - `ALLOW_REGISTRATION=true` for demos, then switch to `false` once demo accounts are created.
+- `BAN_VIOLATIONS=false` for demos that may be tested from scripts or unusual browsers. Re-enable it before broader public use.
 
 Set this on the `RAG API` service:
 
