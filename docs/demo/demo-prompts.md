@@ -1,6 +1,6 @@
-# ChatTenexity Demo Prompts
+# Tenexity AI Workspace Demo Prompts
 
-Use these prompts after logging into the live ChatTenexity app.
+Use these prompts after logging into the live Tenexity AI Workspace app.
 
 ## Presentation Studio
 
@@ -30,7 +30,7 @@ Expected artifact:
 ## Tenexity Demo Builder
 
 ```text
-I have 20 minutes to demo ChatTenexity to a client who wants to create presentations, operational reports, and follow-up action plans from messy notes. Build the demo script, sample inputs, expected outputs, transitions, and close.
+I have 20 minutes to demo Tenexity AI Workspace to a client who wants to create presentations, operational reports, and follow-up action plans from messy notes. Build the demo script, sample inputs, expected outputs, transitions, and close.
 ```
 
 Expected artifact:

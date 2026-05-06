@@ -2,7 +2,7 @@ version: 1.3.9
 cache: true
 
 interface:
-  customWelcome: "ChatTenexity is ready for client demos. Choose a Tenexity demo mode to create presentation outlines, executive reports, implementation briefs, or client-ready artifacts."
+  customWelcome: "Tenexity AI Workspace is ready for client demos. Choose a Tenexity mode to create presentation outlines, executive reports, implementation briefs, dashboards, or client-ready artifacts."
   fileSearch: true
   modelSelect: true
   parameters: true
@@ -52,6 +52,25 @@ endpoints:
       - tools
       - chain
       - ocr
+  custom:
+    - name: "OpenRouter"
+      apiKey: "${OPENROUTER_KEY}"
+      baseURL: "https://openrouter.ai/api/v1"
+      models:
+        default:
+          - "openrouter/auto"
+          - "anthropic/claude-sonnet-4.6"
+          - "google/gemini-2.5-pro"
+          - "openai/gpt-4o"
+          - "qwen/qwen3-coder-30b-a3b-instruct"
+        fetch: true
+      titleConvo: true
+      titleModel: "current_model"
+      summarize: true
+      summaryModel: "current_model"
+      dropParams:
+        - "stop"
+      modelDisplayLabel: "OpenRouter"
 
 modelSpecs:
   enforce: false
@@ -73,7 +92,7 @@ modelSpecs:
         model: gpt-4o
         temperature: 0.35
         instructions: |
-          You are ChatTenexity's demo builder. Convert sparse client context into a crisp demo narrative, live-click script, artifact checklist, and follow-up plan.
+          You are Tenexity's demo builder. Convert sparse client context into a crisp demo narrative, live-click script, artifact checklist, and follow-up plan.
           Be concrete. Use headings, tables, and decision points. When the user asks for a presentation or report, produce content that can be pasted into slides or a client-facing document.
 
     - name: presentation-studio
@@ -126,6 +145,75 @@ modelSpecs:
         instructions: |
           You are a client workshop lead. Produce practical workshop agendas, discovery questions, decision logs, artifacts to collect, and implementation workstreams.
           Keep outputs grounded in the client's operating reality and turn ambiguity into clearly named decisions.
+
+    - name: openrouter-auto
+      label: "OpenRouter Auto"
+      description: "Lets OpenRouter route to a strong model for the request; useful for quick model comparison."
+      group: "OpenRouter Models"
+      groupIcon: "OpenRouter"
+      order: 10
+      artifacts: true
+      fileSearch: true
+      webSearch: true
+      executeCode: true
+      preset:
+        endpoint: "OpenRouter"
+        model: "openrouter/auto"
+        temperature: 0.35
+        instructions: |
+          You are Tenexity's general-purpose model router. Choose the simplest structure that answers the request well.
+          When creating artifacts, make the output immediately usable: slide outlines, report sections, Mermaid diagrams, React prototypes, HTML dashboards, or tables.
+
+    - name: openrouter-strategy
+      label: "OpenRouter Strategy"
+      description: "Uses Claude via OpenRouter for narrative strategy, workshop design, and executive writing."
+      group: "OpenRouter Models"
+      order: 11
+      artifacts: true
+      fileSearch: true
+      webSearch: true
+      executeCode: true
+      preset:
+        endpoint: "OpenRouter"
+        model: "anthropic/claude-sonnet-4.6"
+        temperature: 0.35
+        instructions: |
+          You are a senior Tenexity strategy partner. Build executive narratives, workshop plans, proposal structures, and decision-ready client material.
+          Prefer clear business logic, concrete examples, and crisp next steps.
+
+    - name: openrouter-dashboard-builder
+      label: "OpenRouter Dashboard Builder"
+      description: "Uses Gemini via OpenRouter for data-heavy reports, dashboard briefs, and visual artifact plans."
+      group: "OpenRouter Models"
+      order: 12
+      artifacts: true
+      fileSearch: true
+      webSearch: true
+      executeCode: true
+      preset:
+        endpoint: "OpenRouter"
+        model: "google/gemini-2.5-pro"
+        temperature: 0.25
+        instructions: |
+          You are a dashboard and analytics designer. Turn messy data, notes, or uploaded files into dashboard concepts, KPI taxonomies, charts, and implementation-ready report sections.
+          When useful, produce Mermaid diagrams, chart specs, table schemas, or React/HTML artifact instructions.
+
+    - name: openrouter-artifact-coder
+      label: "OpenRouter Artifact Coder"
+      description: "Uses Qwen Coder via OpenRouter for React, HTML, Mermaid, and dashboard artifacts."
+      group: "OpenRouter Models"
+      order: 13
+      artifacts: true
+      fileSearch: true
+      webSearch: true
+      executeCode: true
+      preset:
+        endpoint: "OpenRouter"
+        model: "qwen/qwen3-coder-30b-a3b-instruct"
+        temperature: 0.2
+        instructions: |
+          You are a pragmatic artifact engineer. Build clean React, HTML, Mermaid, and dashboard artifacts that can be copied into implementation.
+          Keep interfaces useful, compact, accessible, and aligned to Tenexity's operational-product style.
 
 fileConfig:
   endpoints:

@@ -1,4 +1,4 @@
-# ChatTenexity Deployment and Demo Runbook
+# Tenexity AI Workspace Deployment and Demo Runbook
 
 ## Current Live Target
 
@@ -23,11 +23,12 @@ The Railway LibreChat template provisions the full runtime stack:
 
 Set these on the `LibreChat` service:
 
-- `APP_TITLE=ChatTenexity`
-- `CUSTOM_FOOTER=ChatTenexity demo workspace`
+- `APP_TITLE=Tenexity AI Workspace`
+- `CUSTOM_FOOTER=Tenexity AI Workspace`
 - `CONFIG_PATH=https://raw.githubusercontent.com/nicktenexity/ChatTenexity/main/librechat.tenexity.yaml`
 - `OPENAI_API_KEY`
 - `ANTHROPIC_API_KEY`
+- `OPENROUTER_KEY`
 - `ALLOW_EMAIL_LOGIN=true`
 - `ALLOW_REGISTRATION=true` for demos, then switch to `false` once demo accounts are created.
 - `BAN_VIOLATIONS=false` for demos that may be tested from scripts or unusual browsers. Re-enable it before broader public use.
@@ -48,8 +49,8 @@ railway service list
 Set non-secret variables:
 
 ```bash
-railway variable set --service LibreChat APP_TITLE=ChatTenexity
-railway variable set --service LibreChat CUSTOM_FOOTER="ChatTenexity demo workspace"
+railway variable set --service LibreChat APP_TITLE="Tenexity AI Workspace"
+railway variable set --service LibreChat CUSTOM_FOOTER="Tenexity AI Workspace"
 railway variable set --service LibreChat CONFIG_PATH=https://raw.githubusercontent.com/nicktenexity/ChatTenexity/main/librechat.tenexity.yaml
 ```
 
@@ -58,6 +59,7 @@ Set secrets without printing them:
 ```bash
 doppler secrets get OPENAI_API_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin OPENAI_API_KEY
 doppler secrets get ANTHROPIC_API_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin ANTHROPIC_API_KEY
+doppler secrets get OPENROUTER_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin OPENROUTER_KEY
 doppler secrets get RAG_OPENAI_API_KEY --project chattenexity --config prd --plain | railway variable set --service "RAG API" --stdin RAG_OPENAI_API_KEY
 ```
 
@@ -88,7 +90,7 @@ railway logs --service "RAG API"
 
 - App URL returns an HTML page.
 - Login/register page loads.
-- `APP_TITLE` displays as `ChatTenexity`.
+- `APP_TITLE` displays as `Tenexity AI Workspace`.
 - Model selector shows `Tenexity Demo Builder`, `Presentation Studio`, `Report Analyst`, and `Client Workshop`.
 - A short prompt to `Presentation Studio` returns a slide outline.
 - A file upload to `Report Analyst` can be summarized with citations.

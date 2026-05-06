@@ -1,8 +1,8 @@
-# ChatTenexity Secrets Management
+# Tenexity AI Workspace Secrets Management
 
 ## Source of Truth
 
-Doppler is the source of truth for ChatTenexity application secrets.
+Doppler is the source of truth for Tenexity AI Workspace application secrets.
 
 - Doppler project: `chattenexity`
 - Doppler production config: `prd`
@@ -24,8 +24,9 @@ doppler secrets --only-names --project chattenexity --config prd
 
 Provider keys:
 
-- `OPENAI_API_KEY`: primary model provider for ChatTenexity demo modes.
+- `OPENAI_API_KEY`: primary model provider for Tenexity demo modes.
 - `ANTHROPIC_API_KEY`: secondary model provider for workshop-style demo modes.
+- `OPENROUTER_KEY`: unified provider key for OpenRouter model routing and model comparison.
 - `RAG_OPENAI_API_KEY`: embedding/retrieval key for the LibreChat RAG API.
 
 App/runtime config:
@@ -56,6 +57,7 @@ Railway currently hosts the runtime. Use Doppler as the source and push values i
 ```bash
 doppler secrets get OPENAI_API_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin OPENAI_API_KEY
 doppler secrets get ANTHROPIC_API_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin ANTHROPIC_API_KEY
+doppler secrets get OPENROUTER_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin OPENROUTER_KEY
 doppler secrets get RAG_OPENAI_API_KEY --project chattenexity --config prd --plain | railway variable set --service "RAG API" --stdin RAG_OPENAI_API_KEY
 ```
 
@@ -63,8 +65,8 @@ Non-secret or low-sensitivity runtime variables:
 
 ```bash
 railway variable set --service LibreChat \
-  APP_TITLE=ChatTenexity \
-  CUSTOM_FOOTER="ChatTenexity demo workspace" \
+  APP_TITLE="Tenexity AI Workspace" \
+  CUSTOM_FOOTER="Tenexity AI Workspace" \
   CONFIG_PATH=https://raw.githubusercontent.com/nicktenexity/ChatTenexity/main/librechat.tenexity.yaml \
   ALLOW_EMAIL_LOGIN=true \
   ALLOW_REGISTRATION=true \
