@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <base href="/" />
-    <meta name="theme-color" content="#171717" />
+    <meta name="theme-color" content="#000000" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -25,16 +25,23 @@
       const theme = localStorage.getItem('color-theme');
       const loadingContainerStyle = document.createElement('style');
       let backgroundColor;
+      let logoUrl;
 
       if (theme === 'dark') {
         backgroundColor = '#0d0d0d';
+        logoUrl = 'assets/tenexity-logo-white.png';
       } else if (theme === 'light') {
         backgroundColor = '#ffffff';
+        logoUrl = 'assets/tenexity-logo-black.png';
       } else if (theme === 'system') {
         const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
         backgroundColor = prefersDarkScheme ? '#0d0d0d' : '#ffffff';
+        logoUrl = prefersDarkScheme
+          ? 'assets/tenexity-logo-white.png'
+          : 'assets/tenexity-logo-black.png';
       } else {
         backgroundColor = '#ffffff';
+        logoUrl = 'assets/tenexity-logo-black.png';
       }
 
       loadingContainerStyle.innerHTML = `
@@ -44,6 +51,16 @@
           justify-content: center;
           height: 100vh;
           background-color: ${backgroundColor};
+        }
+
+        #loading-container::before {
+          content: "";
+          width: min(56vw, 360px);
+          aspect-ratio: 5 / 1;
+          background-image: url("${logoUrl}");
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
         }
       `;
       document.head.appendChild(loadingContainerStyle);

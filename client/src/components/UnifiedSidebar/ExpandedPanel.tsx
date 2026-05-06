@@ -140,6 +140,18 @@ function ExpandedPanel({
     <div className="flex h-full flex-shrink-0 flex-col gap-2 border-r border-border-light bg-surface-primary-alt px-2 py-2">
       <TooltipAnchor
         side="right"
+        description="Tenexity"
+        render={
+          <div
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border-light bg-white p-1.5 dark:bg-black"
+            aria-label="Tenexity"
+          >
+            <img src="assets/tenexity-mark.png" className="h-full w-full object-contain" alt="" />
+          </div>
+        }
+      />
+      <TooltipAnchor
+        side="right"
         description={localize(toggleLabel)}
         render={
           <Button
