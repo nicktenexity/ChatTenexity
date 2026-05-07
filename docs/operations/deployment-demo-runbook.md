@@ -5,12 +5,12 @@
 - Railway project: `ChatTenexity`
 - Railway environment: `production`
 - App service: `LibreChat`
-- Public app URL: `https://librechat-production-43c8.up.railway.app`
-- Target custom domain: `https://chat.tenexity.ai`
-- Config URL: `https://raw.githubusercontent.com/nicktenexity/ChatTenexity/main/librechat.tenexity.yaml`
+- Public app URL: `https://chat.tenexity.ai`
+- Railway fallback URL: `https://librechat-production-43c8.up.railway.app`
+- Config URL: `https://raw.githubusercontent.com/tenexity/ChatTenexity/main/librechat.tenexity.yaml`
 - Doppler project/config: `chattenexity` / `prd`
 
-As of May 6, 2026, the Railway app URL returns `200`, but `chat.tenexity.ai` does not resolve in DNS yet.
+As of May 7, 2026, `https://chat.tenexity.ai` is resolving through Cloudflare DNS to Railway and the app is live.
 
 ## What Is Deployed
 
@@ -28,21 +28,20 @@ Set these on the `LibreChat` service:
 
 - `APP_TITLE=Tenexity AI Workspace`
 - `CUSTOM_FOOTER=Tenexity AI Workspace`
-- `CONFIG_PATH=https://raw.githubusercontent.com/nicktenexity/ChatTenexity/main/librechat.tenexity.yaml`
+- `CONFIG_PATH=https://raw.githubusercontent.com/tenexity/ChatTenexity/main/librechat.tenexity.yaml`
 - `DOMAIN_CLIENT=https://chat.tenexity.ai`
 - `DOMAIN_SERVER=https://chat.tenexity.ai`
 - `OPENAI_MODELS=gpt-5.4-mini`
 - `OPENAI_API_KEY`
-- `ANTHROPIC_API_KEY`
 - `ALLOW_EMAIL_LOGIN=true`
-- `ALLOW_REGISTRATION=true` for demos, then switch to `false` once demo accounts are created.
+- `ALLOW_REGISTRATION=false` once demo accounts are created.
 - `BAN_VIOLATIONS=false` for demos that may be tested from scripts or unusual browsers. Re-enable it before broader public use.
 
 Set this on the `RAG API` service:
 
 - `RAG_OPENAI_API_KEY`
 
-`OPENROUTER_KEY` is optional. Do not expose OpenRouter model presets until that key exists in Doppler and has been synced to Railway.
+Other model-provider keys are optional. Do not expose additional model presets until the relevant keys exist in Doppler, have been synced to Railway, and have been smoke-tested.
 
 ## Recommended Host
 
@@ -108,17 +107,17 @@ Set non-secret variables:
 ```bash
 railway variable set --service LibreChat APP_TITLE="Tenexity AI Workspace"
 railway variable set --service LibreChat CUSTOM_FOOTER="Tenexity AI Workspace"
-railway variable set --service LibreChat CONFIG_PATH=https://raw.githubusercontent.com/nicktenexity/ChatTenexity/main/librechat.tenexity.yaml
+railway variable set --service LibreChat CONFIG_PATH=https://raw.githubusercontent.com/tenexity/ChatTenexity/main/librechat.tenexity.yaml
 railway variable set --service LibreChat DOMAIN_CLIENT=https://chat.tenexity.ai
 railway variable set --service LibreChat DOMAIN_SERVER=https://chat.tenexity.ai
 railway variable set --service LibreChat OPENAI_MODELS=gpt-5.4-mini
+railway variable set --service LibreChat ALLOW_REGISTRATION=false
 ```
 
 Set secrets without printing them:
 
 ```bash
 doppler secrets get OPENAI_API_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin OPENAI_API_KEY
-doppler secrets get ANTHROPIC_API_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin ANTHROPIC_API_KEY
 doppler secrets get RAG_OPENAI_API_KEY --project chattenexity --config prd --plain | railway variable set --service "RAG API" --stdin RAG_OPENAI_API_KEY
 ```
 
@@ -139,11 +138,11 @@ railway logs --service "RAG API"
 
 ## Demo Account Flow
 
-1. Open `https://chat.tenexity.ai` after DNS is verified. Until then, use `https://librechat-production-43c8.up.railway.app`.
-2. Register a demo account while `ALLOW_REGISTRATION=true`.
-3. Confirm the model selector includes `Tenexity Demo Modes`.
+1. Open `https://chat.tenexity.ai`.
+2. Sign in with a named demo account. Do not store demo passwords in the repo.
+3. Confirm the app defaults to `ChatGPT` and model switching is hidden.
 4. Run the demo prompts in [demo-prompts.md](../demo/demo-prompts.md).
-5. After creating demo accounts, set `ALLOW_REGISTRATION=false` and redeploy `LibreChat`.
+5. Confirm `/api/tenexity/readiness` returns the expected authenticated readiness state.
 
 ## Demo Readiness Checks
 
@@ -152,8 +151,9 @@ railway logs --service "RAG API"
 - `APP_TITLE` displays as `Tenexity AI Workspace`.
 - The app defaults to the single `ChatGPT` mode and model switching is hidden.
 - A short prompt to `ChatGPT` returns a normal answer.
-- A file upload to `ChatGPT` can be summarized with citations.
+- A file upload to `ChatGPT` can be summarized.
 - `RAG API` is running with a real `RAG_OPENAI_API_KEY`.
+- `/api/tenexity/readiness` reports ChatGPT configured, custom domain ready, Teams code-ready, and registration closed.
 
 ## Known Host-Level Blocker
 

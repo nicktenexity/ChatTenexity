@@ -32,6 +32,15 @@ The missing layer is the Tenexity connection product:
 - Permission-aware retrieval.
 - Admin visibility into connected sources, scopes, sync health, and tool usage.
 
+The current app now exposes an authenticated readiness/catalog surface for demos and future admin UI work:
+
+```text
+GET /api/tenexity/readiness
+GET /api/tenexity/source-catalog
+```
+
+These endpoints intentionally show safe status and catalog metadata only. They do not expose credentials or raw connector secrets.
+
 ## Connection Types
 
 ### User OAuth Connectors

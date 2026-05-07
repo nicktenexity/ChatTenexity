@@ -6,6 +6,7 @@ import { useChatContext, useAgentsMapContext, useAssistantsMapContext } from '~/
 import { useGetEndpointsQuery, useGetStartupConfig } from '~/data-provider';
 import ConvoIcon from '~/components/Endpoints/ConvoIcon';
 import TenexityLogo from '~/components/Brand/TenexityLogo';
+import TenexityReadinessPanel from '~/components/Chat/TenexityReadinessPanel';
 import { useLocalize, useAuthContext } from '~/hooks';
 import { getIconEndpoint, getEntity } from '~/utils';
 
@@ -205,6 +206,7 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
             {description}
           </div>
         )}
+        <TenexityReadinessPanel />
       </div>
     </div>
   );

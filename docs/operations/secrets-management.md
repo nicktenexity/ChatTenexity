@@ -24,10 +24,13 @@ doppler secrets --only-names --project chattenexity --config prd
 
 Provider keys:
 
-- `OPENAI_API_KEY`: primary model provider for Tenexity demo modes.
-- `ANTHROPIC_API_KEY`: secondary model provider for workshop-style demo modes.
-- `OPENROUTER_KEY`: unified provider key for OpenRouter model routing and model comparison.
+- `OPENAI_API_KEY`: primary model provider for the current ChatGPT-only production mode.
 - `RAG_OPENAI_API_KEY`: embedding/retrieval key for the LibreChat RAG API.
+
+Optional future provider keys:
+
+- `ANTHROPIC_API_KEY`: only needed if Anthropic modes are re-enabled.
+- `OPENROUTER_KEY`: only needed if OpenRouter model routing and comparison modes are re-enabled.
 
 Microsoft Teams bot:
 
@@ -78,7 +81,6 @@ Railway currently hosts the runtime. Use Doppler as the source and push values i
 
 ```bash
 doppler secrets get OPENAI_API_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin OPENAI_API_KEY
-doppler secrets get ANTHROPIC_API_KEY --project chattenexity --config prd --plain | railway variable set --service LibreChat --stdin ANTHROPIC_API_KEY
 doppler secrets get RAG_OPENAI_API_KEY --project chattenexity --config prd --plain | railway variable set --service "RAG API" --stdin RAG_OPENAI_API_KEY
 ```
 
@@ -88,12 +90,12 @@ Non-secret or low-sensitivity runtime variables:
 railway variable set --service LibreChat \
   APP_TITLE="Tenexity AI Workspace" \
   CUSTOM_FOOTER="Tenexity AI Workspace" \
-  CONFIG_PATH=https://raw.githubusercontent.com/nicktenexity/ChatTenexity/main/librechat.tenexity.yaml \
+  CONFIG_PATH=https://raw.githubusercontent.com/tenexity/ChatTenexity/main/librechat.tenexity.yaml \
   DOMAIN_CLIENT=https://chat.tenexity.ai \
   DOMAIN_SERVER=https://chat.tenexity.ai \
   OPENAI_MODELS=gpt-5.4-mini \
   ALLOW_EMAIL_LOGIN=true \
-  ALLOW_REGISTRATION=true \
+  ALLOW_REGISTRATION=false \
   BAN_VIOLATIONS=false
 ```
 
@@ -113,4 +115,4 @@ railway redeploy --service "RAG API" --yes
 - Before broader public use, consider setting `BAN_VIOLATIONS=true` again and testing from a normal browser.
 - Add SMTP/email provider credentials if you want production email verification and password reset.
 - Add a search provider key such as Tavily or Serper if web-search demos should be reliable.
-- Add `OPENROUTER_KEY` only if you want to re-enable OpenRouter comparison modes. The current production config uses OpenAI and Anthropic presets because those keys exist in Doppler.
+- Add `OPENROUTER_KEY` or other provider keys only if you want to re-enable additional provider modes. The current production config intentionally exposes only ChatGPT.

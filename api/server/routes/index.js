@@ -33,10 +33,12 @@ const keys = require('./keys');
 const user = require('./user');
 const mcp = require('./mcp');
 const teams = require('./teams');
+const tenexity = require('./tenexity');
 
 module.exports = {
   mcp,
   teams,
+  tenexity,
   auth,
   adminAuth,
   adminConfig,

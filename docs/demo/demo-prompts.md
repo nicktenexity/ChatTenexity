@@ -2,7 +2,7 @@
 
 Use these prompts after logging into the live Tenexity AI Workspace app.
 
-## Presentation Studio
+## Executive Presentation
 
 ```text
 Create a 10-slide executive presentation for a manufacturer evaluating a Tenexity AI operations cockpit. The audience is the COO, VP of Operations, and IT director. Include slide titles, key bullets, visual direction, speaker notes, and a recommended live demo moment for each section.
@@ -15,7 +15,7 @@ Expected artifact:
 - Visual direction that can be turned into a deck.
 - Clear demo beats.
 
-## Report Analyst
+## Client Report
 
 ```text
 Build a client-ready assessment report for a field service company that wants to reduce dispatch delays and technician admin time. Include executive summary, assumptions, methodology, opportunity sizing, implementation phases, risks, metrics, and a 30/60/90-day plan.
@@ -27,7 +27,7 @@ Expected artifact:
 - Tables for impact areas and rollout phases.
 - Risks and measurable next steps.
 
-## Tenexity Demo Builder
+## Demo Script
 
 ```text
 I have 20 minutes to demo Tenexity AI Workspace to a client who wants to create presentations, operational reports, and follow-up action plans from messy notes. Build the demo script, sample inputs, expected outputs, transitions, and close.
@@ -40,7 +40,7 @@ Expected artifact:
 - What to show on screen.
 - Follow-up artifacts to send after the demo.
 
-## Client Workshop
+## Client Workshop Plan
 
 ```text
 Design a 90-minute discovery workshop for a client exploring AI-assisted reporting and proposal creation. Include agenda, facilitator script, questions by stakeholder, artifacts to collect, decisions to force, and post-workshop deliverables.
@@ -66,3 +66,28 @@ Expected artifact:
 - Source-grounded summary.
 - Missing-information list.
 - Decision-ready report sections.
+
+## Source Connection Discovery
+
+```text
+A client wants an AI workspace but does not know what to connect first. Build a source connection plan for Google Drive or SharePoint, email and calendar, Salesforce, and a SQL reporting database. For each source, explain the business value, access mode, required approval, guardrails, first demo question, and validation check.
+```
+
+Expected artifact:
+
+- Prioritized connector roadmap.
+- Client-friendly approval checklist.
+- Read-only versus draft/write guardrails.
+- Validation prompts for the first live source.
+
+## Teams Workflow Demo
+
+```text
+Design a Microsoft Teams workflow where users can ask Tenexity AI for account context, meeting follow-up drafts, document summaries, and implementation next steps. Include what should happen in Teams, what should open in the full workspace, latency expectations, and admin setup requirements.
+```
+
+Expected artifact:
+
+- Teams user workflow.
+- Browser workspace handoff moments.
+- Setup requirements for Azure Bot and Teams app installation.
