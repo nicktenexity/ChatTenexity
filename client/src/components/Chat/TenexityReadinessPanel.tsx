@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { request } from 'librechat-data-provider';
 import { CheckCircle2, Database, FileSearch, MessageSquareText, ShieldCheck } from 'lucide-react';
 
 type Readiness = {
@@ -53,8 +54,8 @@ export default function TenexityReadinessPanel() {
   useEffect(() => {
     let mounted = true;
 
-    fetch('/api/tenexity/readiness')
-      .then((response) => (response.ok ? response.json() : fallbackReadiness))
+    request
+      .get<Readiness>('/api/tenexity/readiness')
       .then((data) => {
         if (mounted) {
           setReadiness(data);

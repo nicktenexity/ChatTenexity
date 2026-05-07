@@ -93,6 +93,9 @@ router.get('/readiness', requireJwtAuth, (req, res) => {
       emailConfigured: emailReady,
       passwordResetEnabled,
       passwordResetReady: passwordResetEnabled && emailReady,
+      accountDeletionAllowed:
+        process.env.ALLOW_ACCOUNT_DELETION === undefined ||
+        isEnabled(process.env.ALLOW_ACCOUNT_DELETION),
     },
     teams: {
       endpoint: '/api/teams/messages',
