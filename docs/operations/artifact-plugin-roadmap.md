@@ -38,6 +38,8 @@ Sources:
 
 ## Recommended Plugin/MCP Stack
 
+For the broader connector product, client discovery flow, access modes, and ingestion plan, see `docs/operations/source-connections-plan.md`.
+
 ### 1. Google Drive / Workspace MCP
 
 Use this when the goal is turning client source material into outputs:

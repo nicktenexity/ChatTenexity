@@ -1,0 +1,54 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.21/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.21",
+  "version": "1.0.0",
+  "id": "${TEAMS_APP_PACKAGE_ID}",
+  "developer": {
+    "name": "Tenexity",
+    "websiteUrl": "https://tenexity.ai",
+    "privacyUrl": "https://tenexity.ai/privacy",
+    "termsOfUseUrl": "https://tenexity.ai/terms"
+  },
+  "name": {
+    "short": "Tenexity AI",
+    "full": "Tenexity AI Workspace"
+  },
+  "description": {
+    "short": "Ask Tenexity AI questions directly in Microsoft Teams.",
+    "full": "Tenexity AI Workspace answers questions, drafts next steps, and helps users reason through client workflows directly from Microsoft Teams."
+  },
+  "icons": {
+    "outline": "outline.png",
+    "color": "color.png"
+  },
+  "accentColor": "#087F5B",
+  "bots": [
+    {
+      "botId": "${TEAMS_BOT_APP_ID}",
+      "scopes": ["personal", "team", "groupChat"],
+      "supportsFiles": false,
+      "isNotificationOnly": false,
+      "commandLists": [
+        {
+          "scopes": ["personal", "team", "groupChat"],
+          "commands": [
+            {
+              "title": "ask",
+              "description": "Ask Tenexity AI a question"
+            },
+            {
+              "title": "summarize",
+              "description": "Summarize pasted context or a team discussion"
+            },
+            {
+              "title": "plan",
+              "description": "Turn a goal into next steps"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "permissions": ["identity", "messageTeamMembers"],
+  "validDomains": ["chat.tenexity.ai"]
+}

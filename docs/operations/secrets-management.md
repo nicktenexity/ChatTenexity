@@ -29,6 +29,17 @@ Provider keys:
 - `OPENROUTER_KEY`: unified provider key for OpenRouter model routing and model comparison.
 - `RAG_OPENAI_API_KEY`: embedding/retrieval key for the LibreChat RAG API.
 
+Microsoft Teams bot:
+
+- `TEAMS_BOT_ENABLED`: set to `true` only after the Azure Bot registration points to `/api/teams/messages`.
+- `TEAMS_BOT_APP_ID`: Microsoft App ID from the Azure Bot registration.
+- `TEAMS_BOT_APP_PASSWORD`: Azure Bot client secret.
+- `TEAMS_BOT_TENANT_ID`: optional tenant ID for single-tenant deployments.
+- `TEAMS_BOT_APP_TYPE`: `SingleTenant` or `MultiTenant`.
+- `TEAMS_BOT_MODEL`: fast model for Teams answers, default `gpt-5.4-mini`.
+- `TEAMS_BOT_REPLY_TIMEOUT_MS`: response budget before a graceful Teams fallback.
+- `TEAMS_BOT_MAX_INPUT_CHARS`: input cap for Teams latency control.
+
 ERP MCP/database secrets:
 
 - `TENEXITY_ERP_MCP_URL`: deployed ERP MCP endpoint, for example `https://.../mcp`.
