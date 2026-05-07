@@ -2,11 +2,11 @@ version: 1.3.9
 cache: true
 
 interface:
-  customWelcome: "Tenexity AI Workspace is ready for client demos. Choose a Tenexity mode to create presentation outlines, executive reports, implementation briefs, dashboards, or client-ready artifacts."
+  customWelcome: 'Tenexity AI Workspace is ready. Ask ChatGPT a question, upload a file, or start a practical workflow.'
   fileSearch: true
-  modelSelect: true
-  parameters: true
-  presets: true
+  modelSelect: false
+  parameters: false
+  presets: false
   prompts:
     use: true
     create: true
@@ -54,13 +54,13 @@ endpoints:
       - ocr
 
 modelSpecs:
-  enforce: false
+  enforce: true
   prioritize: true
   list:
-    - name: tenexity-demo-builder
-      label: "Tenexity Demo Builder"
-      description: "Turns rough client context into a polished live demo plan, script, and artifact checklist."
-      group: "Tenexity Demo Modes"
+    - name: chatgpt
+      label: 'ChatGPT'
+      description: 'Default Tenexity chat mode powered by OpenAI.'
+      group: 'Tenexity'
       groupIcon: openAI
       default: true
       order: 1
@@ -70,127 +70,14 @@ modelSpecs:
       executeCode: true
       preset:
         endpoint: openAI
-        model: gpt-5.5
-        temperature: 0.35
-        reasoning_effort: medium
-        instructions: |
-          You are Tenexity's demo builder. Convert sparse client context into a crisp demo narrative, live-click script, artifact checklist, and follow-up plan.
-          Start by naming the client outcome, the live workflow, the artifact to produce, the data or system integration needed, and the proof points that will make the demo credible.
-          Be concrete. Use headings, tables, and decision points. When the user asks for a presentation or report, produce content that can be pasted into slides or a client-facing document.
-
-    - name: presentation-studio
-      label: "Presentation Studio"
-      description: "Creates slide outlines, talk tracks, diagrams, and executive-level messaging."
-      group: "Tenexity Demo Modes"
-      order: 2
-      artifacts: true
-      fileSearch: true
-      webSearch: true
-      executeCode: true
-      preset:
-        endpoint: openAI
-        model: gpt-5.5
-        temperature: 0.45
-        reasoning_effort: medium
-        instructions: |
-          You are a senior presentation strategist. Build tight slide narratives with titles, slide objectives, visual direction, speaker notes, and appendix material.
-          Favor useful structure over decoration. Make every slide earn its place by connecting the client's current friction to an operational workflow, a measurable outcome, and the next decision.
-          Ask only for missing business-critical facts; otherwise make practical assumptions and label them.
-
-    - name: report-analyst
-      label: "Report Analyst"
-      description: "Creates business reports with methodology, assumptions, tables, risks, and next steps."
-      group: "Tenexity Demo Modes"
-      order: 3
-      artifacts: true
-      fileSearch: true
-      webSearch: true
-      executeCode: true
-      preset:
-        endpoint: openAI
-        model: gpt-5.5
-        temperature: 0.25
-        reasoning_effort: high
-        instructions: |
-          You are a rigorous business analyst. Build reports that can survive stakeholder scrutiny: executive summary, methodology, assumptions, calculations, evidence, risks, and recommended actions.
-          Be explicit about what is known, inferred, or missing. Show the method before the recommendation when the answer depends on calculations, source quality, or assumptions.
-          Use tables when they make the report easier to audit.
-
-    - name: client-workshop
-      label: "Client Workshop"
-      description: "Prepares discovery agendas, facilitation guides, and implementation workstreams."
-      group: "Tenexity Demo Modes"
-      order: 4
-      artifacts: true
-      fileSearch: true
-      webSearch: true
-      executeCode: true
-      preset:
-        endpoint: anthropic
-        model: claude-sonnet-4-6
-        temperature: 0.35
-        instructions: |
-          You are a client workshop lead. Produce practical workshop agendas, discovery questions, decision logs, artifacts to collect, and implementation workstreams.
-          Keep outputs grounded in the client's operating reality and turn ambiguity into clearly named decisions.
-
-    - name: erp-database-analyst
-      label: "ERP Database Analyst"
-      description: "Turns live manufacturing and distribution ERP data into safe operational answers, dashboards, and follow-up investigations."
-      group: "Tenexity Operations"
-      groupIcon: "database"
-      order: 8
-      artifacts: true
-      fileSearch: true
-      webSearch: true
-      executeCode: true
-      preset:
-        endpoint: openAI
-        model: gpt-5.5
-        temperature: 0.2
-        reasoning_effort: high
-        instructions: |
-          You are Tenexity's ERP database analyst for manufacturers and distributors.
-          Your job is to answer operational questions from live ERP data without pretending. Start by identifying the business object: inventory, sales orders, purchase orders, work orders, shipments, invoices, vendors, customers, locations, lots/serials, or GL impact.
-          If the Tenexity ERP MCP tools are connected, use them before making claims about live data. Prefer the domain tools first: erp_connection_profile, erp_schema_map, erp_inventory_position, erp_order_risk, then erp_run_read_query only when a custom read query is necessary.
-          Never request or perform writes. Never suggest UPDATE, INSERT, DELETE, MERGE, stored procedures, or admin actions from the chat surface. Keep queries read-only, row-limited, and explain the assumptions behind every answer.
-          Present results in a client-ready shape: executive answer, source tables/fields used, data-quality concerns, operational interpretation, and recommended next investigation.
-          For dashboards, produce KPI definitions, chart specs, filter dimensions, drill-down paths, and a clear data contract that an engineer can implement.
-
-    - name: implementation-planner
-      label: "Implementation Planner"
-      description: "Turns client goals into scoped workstreams, milestones, dependencies, and validation gates."
-      group: "Tenexity Operations"
-      groupIcon: "workflow"
-      order: 9
-      artifacts: true
-      fileSearch: true
-      webSearch: true
-      executeCode: true
-      preset:
-        endpoint: openAI
-        model: gpt-5.4
-        temperature: 0.25
-        reasoning_effort: medium
-        instructions: |
-          You are Tenexity's implementation planner. Convert client goals into practical workstreams, dependencies, systems touched, data contracts, milestones, acceptance criteria, and validation gates.
-          Keep plans executable. Separate discovery, build, integration, change-management, and launch risks. Make assumptions explicit and call out the first irreversible decision.
-
-    - name: fast-client-draft
-      label: "Fast Client Draft"
-      description: "Lower-cost OpenAI mode for quick emails, first-pass notes, outlines, and summaries."
-      group: "Tenexity Demo Modes"
-      order: 10
-      artifacts: true
-      fileSearch: true
-      webSearch: true
-      preset:
-        endpoint: openAI
         model: gpt-5.4-mini
         temperature: 0.2
         reasoning_effort: low
         instructions: |
-          You are Tenexity's fast drafting mode. Produce concise, usable first drafts for client emails, summaries, notes, outlines, and follow-ups.
-          Keep the structure clean, avoid over-explaining, and flag where a stronger model should review the answer before sending.
+          You are ChatGPT inside Tenexity AI Workspace.
+          Answer clearly and practically. Help the user ask questions, reason through work, draft content, analyze uploaded files, and plan next actions.
+          When a task depends on live company systems, explain what source connection would be needed instead of pretending you have access.
+          Keep answers concise unless the user asks for a deeper artifact, report, plan, or implementation detail.
 
 fileConfig:
   endpoints:
@@ -199,18 +86,14 @@ fileConfig:
       fileSizeLimit: 25
       totalSizeLimit: 100
       supportedMimeTypes:
-        - "application/pdf"
-        - "text/.*"
-        - "application/json"
-        - "application/csv"
-        - "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        - "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-        - "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        - 'application/pdf'
+        - 'text/.*'
+        - 'application/json'
+        - 'application/csv'
+        - 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        - 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+        - 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     openAI:
-      fileLimit: 8
-      fileSizeLimit: 25
-      totalSizeLimit: 100
-    anthropic:
       fileLimit: 8
       fileSizeLimit: 25
       totalSizeLimit: 100

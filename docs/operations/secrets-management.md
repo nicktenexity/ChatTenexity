@@ -91,7 +91,7 @@ railway variable set --service LibreChat \
   CONFIG_PATH=https://raw.githubusercontent.com/nicktenexity/ChatTenexity/main/librechat.tenexity.yaml \
   DOMAIN_CLIENT=https://chat.tenexity.ai \
   DOMAIN_SERVER=https://chat.tenexity.ai \
-  OPENAI_MODELS=gpt-5.5,gpt-5.4,gpt-5.4-mini,gpt-5.4-pro,gpt-5.1,gpt-5,gpt-4.1,gpt-4o \
+  OPENAI_MODELS=gpt-5.4-mini \
   ALLOW_EMAIL_LOGIN=true \
   ALLOW_REGISTRATION=true \
   BAN_VIOLATIONS=false

@@ -31,7 +31,7 @@ Set these on the `LibreChat` service:
 - `CONFIG_PATH=https://raw.githubusercontent.com/nicktenexity/ChatTenexity/main/librechat.tenexity.yaml`
 - `DOMAIN_CLIENT=https://chat.tenexity.ai`
 - `DOMAIN_SERVER=https://chat.tenexity.ai`
-- `OPENAI_MODELS=gpt-5.5,gpt-5.4,gpt-5.4-mini,gpt-5.4-pro,gpt-5.1,gpt-5,gpt-4.1,gpt-4o`
+- `OPENAI_MODELS=gpt-5.4-mini`
 - `OPENAI_API_KEY`
 - `ANTHROPIC_API_KEY`
 - `ALLOW_EMAIL_LOGIN=true`
@@ -111,7 +111,7 @@ railway variable set --service LibreChat CUSTOM_FOOTER="Tenexity AI Workspace"
 railway variable set --service LibreChat CONFIG_PATH=https://raw.githubusercontent.com/nicktenexity/ChatTenexity/main/librechat.tenexity.yaml
 railway variable set --service LibreChat DOMAIN_CLIENT=https://chat.tenexity.ai
 railway variable set --service LibreChat DOMAIN_SERVER=https://chat.tenexity.ai
-railway variable set --service LibreChat OPENAI_MODELS=gpt-5.5,gpt-5.4,gpt-5.4-mini,gpt-5.4-pro,gpt-5.1,gpt-5,gpt-4.1,gpt-4o
+railway variable set --service LibreChat OPENAI_MODELS=gpt-5.4-mini
 ```
 
 Set secrets without printing them:
@@ -150,9 +150,9 @@ railway logs --service "RAG API"
 - App URL returns an HTML page.
 - Login/register page loads.
 - `APP_TITLE` displays as `Tenexity AI Workspace`.
-- Model selector shows `Tenexity Demo Builder`, `Presentation Studio`, `Report Analyst`, `Client Workshop`, `Implementation Planner`, and `Fast Client Draft`.
-- A short prompt to `Presentation Studio` returns a slide outline.
-- A file upload to `Report Analyst` can be summarized with citations.
+- The app defaults to the single `ChatGPT` mode and model switching is hidden.
+- A short prompt to `ChatGPT` returns a normal answer.
+- A file upload to `ChatGPT` can be summarized with citations.
 - `RAG API` is running with a real `RAG_OPENAI_API_KEY`.
 
 ## Known Host-Level Blocker
